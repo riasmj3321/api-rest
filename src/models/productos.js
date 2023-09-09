@@ -1,43 +1,42 @@
 export const productosDB = [
-    {
-      id: 123,
-      nombre: "Zapatillas Nike tornado",
-      precio: 200000,
-      color:
-        "rojo",
-      stock: 18,
-    },
-    {
-        id: 124,
-        nombre: "Camiseta Adidas Originals",
-        precio: 45000,
-        color: "Negro",
-        stock: 35,
-    },
-    {
-        id: 125,
-        nombre: "Pantalones Vaqueros Levi's",
-        precio: 80000,
-        color: "Azul",
-        stock: 25,
-    },
-    {
-        id: 126,
-        nombre: "Reloj Casio G-Shock",
-        precio: 150000,
-        color: "Negro",
-        stock: 12,
-    },
-    {
-        id: 127,
-        nombre: "Portátil Dell XPS 13",
-        precio: 1500000,
-        color: "Plateado",
-        stock: 8,
-    },
-  ];
+  {
+    id: "e92d77d1-21a6-45a9-ba2f-23f0ad485980",
+    nombre: "Zapatillas Nike tornado",
+    precio: 200000,
+    color: "rojo",
+    stock: 18,
+  },
+  {
+    id: "0283ab23-83db-4b13-a654-73ac7f44aac4",
+    nombre: "Camiseta Adidas Originals",
+    precio: 45000,
+    color: "Negro",
+    stock: 35,
+  },
+  {
+    id: "6608b7d6-46fd-4f35-bb35-f162ef8f8efe",
+    nombre: "Pantalones Vaqueros Levi's",
+    precio: 80000,
+    color: "Azul",
+    stock: 25,
+  },
+  {
+    id: "a0b55aed-61c8-4a4f-9da0-3bc1c75d03fb",
+    nombre: "Reloj Casio G-Shock",
+    precio: 150000,
+    color: "Negro",
+    stock: 12,
+  },
+  {
+    id: "209d4079-8e24-4e1b-a6a4-a1694bea9aa2",
+    nombre: "Portátil Dell XPS 13",
+    precio: 1500000,
+    color: "Plateado",
+    stock: 8,
+  },
+];
 
-  export function getAllProducts() {
+export function getAllProducts() {
   return products;
 }
 

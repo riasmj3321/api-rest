@@ -1,63 +1,77 @@
-import express from 'express';
+import express from "express";
 import cors from "cors";
-import 'dotenv/config';
-import { createProduct, deleteProduct, getAllProducts, getProductById, productosDB, updateProduct } from './models/productos.js';
-getAllProducts
-getProductById
-createProduct
-updateProduct
-deleteProduct
+import "dotenv/config";
+import {
+  createProduct,
+  deleteProduct,
+  getAllProducts,
+  getProductById,
+  productosDB,
+  updateProduct,
+} from "./models/productos.js";
+import { randomUUID } from "node:crypto";
 
+const app = express();
 
-const app = express()
 app.use(express.json());
 app.use(cors());
 
-app.get('/productos', (req, res) => {
+app.get("/productos", (req, res) => {
   res.json(productosDB);
-})
+});
 
-app.get('/productos/:id', (req, res) => {
-    const productId = parseInt(req.params.id);
-    const product = getProductById(productId);
-  
-    if (!product) {
-      return res.status(404).json({ message: 'Producto no encontrado' });
-    }
-  
-    res.json({ product });
-  });
+app.get("/productos/:id", (req, res) => {
+  const id = req.params.id;
 
-  app.post('/productos', (req, res) => {
-    const newProduct = createProduct(req.body);
-    res.status(201).json({ message: 'Producto creado con éxito', newProduct });
-  });
+  const product = productosDB.find((product) => product.id === id);
 
-  app.put('/productos/:id', (req, res) => {
-    const productId = parseInt(req.params.id);
-    const updatedProduct = req.body;
-    const product = updateProduct(productId, updatedProduct);
-  
-    if (!product) {
-      return res.status(404).json({ message: 'Producto no encontrado' });
-    }
-  
-    res.json({ message: 'Producto actualizado con éxito', product });
-  });
+  if (!product) {
+    return res.status(404).json({ error: "Producto no encontrado" });
+  }
 
-  app.delete('/productos/:id', (req, res) => {
-    const productId = parseInt(req.params.id);
-    const deleted = deleteProduct(productId);
-  
-    if (!deleted) {
-      return res.status(404).json({ message: 'Producto no encontrado' });
-    }
-  
-    res.json({ message: 'Producto eliminado con éxito' });
-  });
+  res.json(product);
+});
 
+app.post("/productos", (req, res) => {
+  const { nombre, precio, color, stock } = req.body;
+  if (!nombre || !precio || !color || !stock) {
+    return res.status(400).json({ error: "error en la peticion" });
+  }
+  const nuevoProducto = {
+    id: randomUUID(),
+    nombre,
+    precio,
+    color,
+    stock,
+  };
+  productosDB.push(nuevoProducto);
+  return res.status(201).json(nuevoProducto);
+});
+
+app.patch("/productos/:id", (req, res) => {
+  const id = req.params.id;
+  const index = productosDB.findIndex((nombre) => nombre.id == id);
+  if (index === -1) {
+    return res.status(404).json({ error: "no encontrado" });
+  } else {
+    const nombreactualizado = { ...productosDB[index], ...req.body };
+    productosDB[index] = nombreactualizado;
+    res.json(nombreactualizado);
+  }
+});
+
+app.delete("/productos/:id", (req, res) => {
+  const id = req.params.id;
+
+  const index = productosDB.findIndex((nombre) => nombre.id === id);
+  if (index === -1) {
+    return res.status(404).json({ error: "no encontrado producto" });
+  }
+  productosDB.splice(index, 1);
+  res.sendStatus(204);
+});
 
 const port = process.env.PORT ?? 3000;
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+  console.log(`Puerto activo ${port}`);
+});
