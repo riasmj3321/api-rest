@@ -3,7 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Api Riascos</title>
+    <title>Consumir API de Productos</title>
+    <link rel="stylesheet" href="styles.css" />
   </head>
-  <body></body>
+  <body>
+    <h1>Lista de Productos</h1>
+
+    <!-- Agrega una tabla para mostrar los productos -->
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Precio</th>
+          <th>Color</th>
+          <th>Stock</th>
+        </tr>
+      </thead>
+      <tbody id="productTableBody">
+        <!-- Los datos de los productos se mostrarán aquí -->
+      </tbody>
+    </table>
+
+    <!-- Incluye el archivo JavaScript -->
+    <script src="script.js"></script>
+  </body>
 </html>
